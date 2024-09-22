@@ -6,13 +6,14 @@ st.title("Welcome to AWS RAG Demo!")
 
 col1, col2, col3 = st.columns([1, 1, 1])
 with col1:
-    btn1 = st.button("👉 **이 RAG의 아키텍처를 보여주세요.**")
+    btn1 = st.button("💬 **이 RAG의 아키텍처를 보여주세요.**")
 with col2:
-    btn2 = st.button("👉 **이 애플리케이션의 UI는 어떻게 만들어졌나요?**")
+    btn2 = st.button("💬 **이 애플리케이션의 UI는 어떻게 만들어졌나요?**")
 
-st.markdown('''- 이 데모는 검색 증강 생성 (RAG)을 활용한 생성형 AI 애플리케이션을 빠르게 구성하고 테스트해보기 위한 챗봇 애플리케이션입니다.''')
-st.markdown('''- Amazon Bedrock Knowledge base를 활용해 복잡하게 느껴질 수 있는 RAG 구성, 예를 들면 VectorStore Embedding 작업부터 Amazon OpenSearch serverless 생성 및 문서 인덱싱과 같은 작업들을 손쉽게 해결하고, Bedrock agent의 [RetrieveAndGenerate](https://docs.aws.amazon.com/ko_kr/bedrock/latest/APIReference/API_agent-runtime_RetrieveAndGenerate.html) API를 활용해 곧바로 Knowledge base에 질문할 수 있도록 Streamlit 애플리케이션과 연동해 챗봇을 구현한 데모입니다. ''')
+# st.markdown('''- 이 데모는 검색 증강 생성 (RAG)을 활용한 생성형 AI 애플리케이션을 빠르게 구성하고 테스트해보기 위한 챗봇 애플리케이션입니다.''')
+st.markdown('''- 이 데모는 Amazon Bedrock Knowledge base를 활용해 복잡하게 느껴질 수 있는 RAG 구성, 예를 들면 VectorStore Embedding 작업부터 Amazon OpenSearch serverless 생성 및 문서 인덱싱과 같은 작업들을 손쉽게 해결하고, Bedrock agent의 [RetrieveAndGenerate](https://docs.aws.amazon.com/ko_kr/bedrock/latest/APIReference/API_agent-runtime_RetrieveAndGenerate.html) API를 활용해 곧바로 Knowledge base에 질문할 수 있도록 Streamlit 애플리케이션과 연동해 챗봇을 구현한 데모입니다. ''')
 st.markdown('''- [Github](https://github.com/ottlseo/bedrock-rag-chatbot)에서 코드를 확인하실 수 있습니다.''')
+st.markdown('''- **시작하기 전에**, Bedrock Knowledge base와 연결된 **S3 소스 버킷에** :green[**질문하고자 하는 문서를 업로드**]해주세요.''')
 
 if "messages" not in st.session_state:
     st.session_state["messages"] = [
