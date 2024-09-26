@@ -78,10 +78,12 @@ LLM을 활용한 파싱 기능은 PDF와 같이 구조화되지 않은 문서에
 
 위 스크린샷에서 빨간 사각형으로 표시한 부분이 파싱을 위해 LLM에 전달하는 프롬프트입니다. 해당 프롬프트는 원하는 대로 수정할 수 있지만, 해당 실습에서는 기본으로 주어지는 프롬프트를 그대로 사용했습니다. 기본 프롬프트의 내용을 요약하면 아래와 같습니다. 
 
-* 각 페이지를 주의 깊게 살피고, 헤더, 본문 텍스트, 각주, 표, 이미지 및 페이지 번호 등 페이지에 있는 모든 요소를 식별해 마크다운 형식으로 변환합니다. 
+```
+1. 각 페이지를 주의 깊게 살피고, 헤더, 본문 텍스트, 각주, 표, 이미지 및 페이지 번호 등 페이지에 있는 모든 요소를 식별해 마크다운 형식으로 변환합니다. 
     * 메인 제목에는 #, 섹션에는 ##, 하위 섹션에는 ### 등을 사용 (기타 가이드 생략)
-* Visualization (이미지 등) 요소를 발견한 경우, 이에 대한 자세한 설명을 작성합니다.
-* Table (표) 요소를 발견할 경우, 마크다운 테이블로 변환합니다. 
+2. Visualization (이미지 등) 요소를 발견한 경우, 이에 대한 자세한 설명을 작성합니다.
+3. Table (표) 요소를 발견할 경우, 마크다운 테이블로 변환합니다. 
+```
 
 이와 같이 LLM 파싱 기능은 문서를 검색 가능한 형태로 임베딩하기에 앞서 위와 같은 프롬프트를 활용해 LLM이 구조를 재정의하게 함으로써 텍스트는 물론 이미지 및 표에 대한 검색 성능을 높일 수 있습니다. LLM을 사용하는 것이므로 대용량 문서에 활용할 때에는 비용을 고려하는 것이 좋습니다. 
 
@@ -89,7 +91,11 @@ LLM을 활용한 파싱 기능은 PDF와 같이 구조화되지 않은 문서에
 
 ![image](https://github.com/user-attachments/assets/532db6e6-2002-4f2d-94b6-9d174bf19e1c)
 
-> 다양한 Chunking 전략 및 메타데이터 프로세싱 설정과 관련해서는 다음 블로그 게시물을 참고하시면 좋습니다. 대상 문서의 크기, 종류 및 기타 특성을 고려해 상황에 맞는 Chunking 옵션을 선택하는 것이 RAG의 성능을 높이는 데 도움이 됩니다. 
+해당 LLM parsing 기능을 활용한 결과로, 아래와 같이 복잡한 표/이미지에 있는 그림도 높은 성능으로 retrieve 해올 수 있는 것을 확인하실 수 있습니다. 
+
+<img width="565" alt="image" src="https://github.com/user-attachments/assets/a03b5353-2970-4b91-8bb2-aa4d16b10f09">
+
+> 다양한 Chunking 전략 및 메타데이터 프로세싱 설정과 관련해서는 다음 블로그 게시물을 참고하시면 좋습니다. 대상 문서의 크기, 종류 및 기타 특성을 고려해 상황에 맞는 Chunking 옵션을 선택하는 것이 RAG의 성능을 높이는 데 도움이 됩니다: https://aws.amazon.com/ko/blogs/machine-learning/amazon-bedrock-knowledge-bases-now-supports-advanced-parsing-chunking-and-query-reformulation-giving-greater-control-of-accuracy-in-rag-based-applications/
 
 ### 임베딩 모델 선택 및 벡터 DB로서의 OpenSearch serverless 생성하기
 사용할 Embedding 모델을 선택할 수 있으며, 해당 실습에서는 Titan text Embeddings v2 모델을 선택합니다. Vector dimensions 역시 RAG의 정확도 및 속도를 결정하는 요인이므로, 기본 제공되는 값 외에 원하는 값으로 설정이 가능합니다. 
@@ -104,8 +110,6 @@ Knowledge base가 성공적으로 생성되었습니다. Data source에 앞서 [
 ![image](https://github.com/user-attachments/assets/0a243c29-39ad-4e82-a49b-07b706473e6e)
 ![image](https://github.com/user-attachments/assets/fec762b2-a629-4803-89aa-f328aa9649a3)
 ![image](https://github.com/user-attachments/assets/1af4bda3-2faf-4632-ba30-0592011b2d90)
-<img width="565" alt="image" src="https://github.com/user-attachments/assets/a03b5353-2970-4b91-8bb2-aa4d16b10f09">
-
 
 ## Step 3. EC2에 챗봇 애플리케이션 배포하기
 
