@@ -15,8 +15,10 @@
 
 Amazon Bedrock 역시 RAG 구축을 위한 손쉬운 방법으로 Knowledge base 기능을 지원하고 있습니다. Amazon Bedrock Knowledge base를 이용하면 클릭 몇 번으로 FM을 OpenSearch와 같은 RAG용 데이터 소스에 연결해 테스트할 수 있습니다. 본 포스팅에서는 Amazon Bedrock Knowledge base를 활용해 고성능 RAG를 손쉽게 구축하는 방법에 대해 알아보고, 이렇게 구축한 RAG를 아래와 같은 챗봇 애플리케이션 형태로 EC2에 배포하는 방법을 코드와 함께 단계별로 소개합니다. 
 
-![image](https://github.com/user-attachments/assets/e67285aa-77a9-46e7-ad48-9e283b398eef)
+## Architecture & Demo
+![image](https://github.com/user-attachments/assets/3211645d-c4c5-4507-ac6e-19b19cb3d495)
 
+![image](https://github.com/user-attachments/assets/e67285aa-77a9-46e7-ad48-9e283b398eef)
 
 ## Step 1. Knowledge base와 연동할 S3 소스 버킷 생성
 
