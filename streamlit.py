@@ -26,7 +26,7 @@ for msg in st.session_state.messages:
 if btn1:
     query = "이 RAG의 아키텍처를 보여주세요."
     st.chat_message("user").write(query)
-    st.chat_message("assistant").write('추후 제공 예정') #image('architecture.png')
+    st.chat_message("assistant").image('architecture.png')
 
     st.session_state.messages.append({"role": "user", "content": query}) 
     st.session_state.messages.append({"role": "assistant", "content": "아키텍처 이미지를 다시 확인하려면 위 버튼을 다시 눌러주세요."})
