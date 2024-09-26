@@ -5,7 +5,7 @@
 - Step 2. [Bedrock knowledge base 생성하기](#step-2-bedrock-knowledge-base-생성하기)
   - (선택사항) [검색 성능을 높이기 위해 Chunking and parsing configurations 설정하기](#선택사항-검색-성능을-높이기-위해-chunking-and-parsing-configurations-설정하기)
 - Step 3. [EC2에 챗봇 애플리케이션 배포하기](#step-3-ec2에-챗봇-애플리케이션-배포하기)
-- [Sample demo 테스트해보기](#sample-demo)
+- Step 4. [배포한 애플리케이션 테스트해보기](#sample-demo)
 
 - - - 
 
@@ -179,8 +179,8 @@ sudo systemctl start streamlit
 
 - - -
 
-# Sample demo
-http://35.87.31.249/
+# Step 4. 배포한 애플리케이션 테스트해보기
+- Sample demo: http://35.87.31.249/
 
 #### 샘플 질문: 
 - `EC2란 무엇인가요?`
