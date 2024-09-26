@@ -5,7 +5,7 @@
 - Step 2. [Bedrock knowledge base 생성하기](#step-2-bedrock-knowledge-base-생성하기)
   - (선택사항) [검색 성능을 높이기 위해 Chunking and parsing configurations 설정하기](#선택사항-검색-성능을-높이기-위해-chunking-and-parsing-configurations-설정하기)
 - Step 3. [EC2에 챗봇 애플리케이션 배포하기](#step-3-ec2에-챗봇-애플리케이션-배포하기)
-- Step 4. [배포한 애플리케이션 테스트해보기](#sample-demo)
+- Step 4. [배포한 애플리케이션 테스트해보기](#step-4-배포한-애플리케이션-테스트해보기)
 
 - - - 
 
