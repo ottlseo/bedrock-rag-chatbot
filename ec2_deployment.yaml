@@ -1,20 +1,24 @@
 AWSTemplateFormatVersion: '2010-09-09'
-Description: Web Stack
+Description: RAG Chatbot EC2 Stack
 
 Parameters:
   KnowledgeBaseId:
     Type: String
     Description: The ID of the Knowledge Base
+    Default: t3.small
+  InstanceType:
+    Type: String
+    Description: The type of EC2 instance for chatbot app
+    Default: t3.small
 
 Resources:
-
   KnowledgeBaseIdParameter:
     Type: AWS::SSM::Parameter
     Properties:
       Name: /RAGChatBot/KNOWLEDGE_BASE_ID
       Type: String
       Value: 
-        Ref: KnowledgeBaseId
+        - !Ref KnowledgeBaseId
 
   InstanceRole:
     Type: AWS::IAM::Role
