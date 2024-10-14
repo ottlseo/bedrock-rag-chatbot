@@ -8,6 +8,14 @@ Parameters:
 
 Resources:
 
+  KnowledgeBaseIdParameter:
+    Type: AWS::SSM::Parameter
+    Properties:
+      Name: /RAGChatBot/KNOWLEDGE_BASE_ID
+      Type: String
+      Value: 
+        Ref: KnowledgeBaseId
+
   InstanceRole:
     Type: AWS::IAM::Role
     Properties:
@@ -107,13 +115,6 @@ Resources:
             sudo systemctl daemon-reload
             sudo systemctl enable streamlit
             sudo systemctl start streamlit
-
-  KnowledgeBaseIdParameter:
-    Type: AWS::SSM::Parameter
-    Properties:
-      Name: /RAGChatBot/KNOWLEDGE_BASE_ID
-      Type: String
-      Value: !Ref KnowledgeBaseId
 
   chatbotAppUrl:
     Type: AWS::CloudFormation::Output
