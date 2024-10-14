@@ -80,7 +80,7 @@ Resources:
             sudo chown -R ubuntu:ubuntu /home/ubuntu/my_env
             source /home/ubuntu/my_env/bin/activate
 
-            cd bedrock-rag-chatbot
+            cd bedrock-rag-chatbot/app
 
             # Install dependencies
             pip3 install -r requirements.txt
@@ -94,7 +94,7 @@ Resources:
             [Service]
             User=ubuntu
             Environment='AWS_DEFAULT_REGION=us-west-2'
-            WorkingDirectory=/home/ubuntu/bedrock-rag-chatbot
+            WorkingDirectory=/home/ubuntu/bedrock-rag-chatbot/app
             ExecStartPre=/bin/bash -c 'sudo iptables -t nat -A PREROUTING -p tcp --dport 80 -j REDIRECT --to-port 8501'
             ExecStart=/bin/bash -c 'source /home/ubuntu/my_env/bin/activate && streamlit run streamlit.py --server.port 8501'
             Restart=always
