@@ -27,7 +27,7 @@ Amazon Bedrock 역시 RAG 구축을 위한 손쉬운 방법으로 Knowledge base
 ![image](https://github.com/user-attachments/assets/da5820a9-c84c-4a7d-a736-cbf361d1dc32)
 
 버킷 생성이 완료되면, RAG를 통해 검색하고자 하는 문서를 해당 버킷에 미리 업로드해두겠습니다. 
-(본 실습에서는 50장 분량의 EC2 사용자 가이드 PDF를 업로드했습니다: [ec2_userguide_1-50.pdf](./ec2_userguide_1-50.pdf) )
+(본 실습에서는 50장 분량의 EC2 사용자 가이드 PDF를 업로드했습니다: [ec2_userguide_1-50.pdf](./sampledata/ec2_userguide_1-50.pdf) )
 
 
 ## Step 2. Bedrock knowledge base 생성하기
