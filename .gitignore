@@ -1,5 +1,9 @@
 /node_modules
 
+*.js
+!jest.config.js
+*.d.ts
+
 # DS_store
 .DS_Store
 **/.DS_Store
@@ -9,3 +13,7 @@
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
+
+# CDK asset staging directory
+.cdk.staging
+cdk.out

@@ -35,7 +35,7 @@ if btn2:
     answer = '''이 챗봇은 [Streamlit](https://docs.streamlit.io/)을 이용해 만들어졌어요.   
                 Streamlit은 간단한 Python 기반 코드로 대화형 웹앱을 구축 가능한 오픈소스 라이브러리입니다.    
                 아래 app.py 코드를 통해 Streamlit을 통해 간단히 챗봇 데모를 만드는 방법에 대해 알아보세요:
-                💁‍♀️ [app.py 코드 확인하기](https://github.com/ottlseo/bedrock-rag-chatbot/blob/main/streamlit.py)
+                💁‍♀️ [app.py 코드 확인하기](https://github.com/ottlseo/bedrock-rag-chatbot/blob/main/application/streamlit.py)
             '''
     st.chat_message("user").write(query)
     st.chat_message("assistant").write(answer)
