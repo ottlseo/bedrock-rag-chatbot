@@ -129,18 +129,18 @@ Knowledge base가 성공적으로 생성되었습니다. Data source에 앞서 [
 CDK 스택을 배포하려면 아래의 과정이 로컬 환경에 준비되어 있어야 합니다. 
 * Linux 기반 OS (*이 글이 게시되는 현재 Windows 배포 스크립트가 없습니다).
 * [NodeJS](https://nodejs.org/en)(버전 18 이상) 및 [NPM](https://www.npmjs.com/)이 설치되어 있어야 합니다. 설치되어 있는지 확인하려면 다음 명령을 실행하세요.
-    ```
+    ```bash
     $ npm -v && node -v
     7.24.2
     v18.16.1
     ```
 * [AWS Cloud Development Kit(AWS CDK)](https://aws.amazon.com/ko/cdk/)가 설치되어 있어야 합니다. 설치되어 있는지 확인하려면 다음 명령을 실행하세요. 설치되어 있지 않다면, npm install -g aws-cdk로 설치할 수 있으며, 자세한 내용은 [자습서](https://docs.aws.amazon.com/ko_kr/cdk/v2/guide/getting_started.html)를 참고해 설치를 완료해주세요.
-    ```
+    ```bash
     $ cdk --version
     2.124.0 (build 4b6724c)
     ```
 * 백엔드 리소스를 실행할 AWS 계정과 [AWS Command Line Interface(AWS CLI)(v2)](https://aws.amazon.com/ko/cli/)가 설치 및 구성되어 있어야 합니다. AWS CLI가 컴퓨터에 설치 및 구성되었는지 확인하려면 다음 명령을 실행하세요. 기본 사용자로 설정되어 있어야 합니다. 이 사용자가 백엔드 리소스를 배포할 수 있는 권한이 있는지 확인합니다.
-    ```
+    ```bash
     $ aws sts get-caller-identity
       {
           "UserId": "AIDxxxxxxxxxxxxxxxT34",
@@ -153,7 +153,7 @@ CDK 스택을 배포하려면 아래의 과정이 로컬 환경에 준비되어 
 
 아래 명령어를 입력해 준비된 CDK 코드를 Github에서 clone 받고, 필요한 패키지를 설치한 뒤, CDK 스택을 배포하기 전에 부트스트랩을 실행합니다. cdk bootstrap 실행 후 아래 스크린샷과 같이 Environment bootstrapped. 라는 메시지가 출력되면 배포를 위한 준비가 완료된 것입니다.
 
-```
+```bash
 $ git clone https://github.com/ottlseo/bedrock-rag-chatbot.git
 $ cd bedrock-rag-chatbot
 
@@ -168,7 +168,7 @@ $ cdk bootstrap aws://<Account ID>/us-west-2
 
 아래 명령어의 ENTER_YOUR_KNOWLEDGE_BASE_ID 자리에 붙여넣어 실행합니다. 이후 스크린샷과 같이 ‘Do you wish to deploy these changes (y/n)?’가 나오면 y를 입력해 스택을 배포합니다. 
 
-```
+```bash
 $ cdk deploy --parameters knowledgeBaseId=ENTER_YOUR_KNOWLEDGE_BASE_ID
 ```
 
