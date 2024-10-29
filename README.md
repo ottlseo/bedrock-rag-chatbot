@@ -122,6 +122,10 @@ Knowledge base가 성공적으로 생성되었습니다. Data source에 앞서 [
 
 
 ### 전제 조건
+> [!IMPORTANT]
+> 만약 CDK 설정이 어려운 상황일 경우, 해당 [링크](https://github.com/ottlseo/bedrock-rag-chatbot/tree/ec2-manual-deployment?tab=readme-ov-file#step-3-ec2%EC%97%90-%EC%B1%97%EB%B4%87-%EC%95%A0%ED%94%8C%EB%A6%AC%EC%BC%80%EC%9D%B4%EC%85%98-%EB%B0%B0%ED%8F%AC%ED%95%98%EA%B8%B0)의 가이드를 통해 CDK 대신 수동으로 EC2 애플리케이션을 배포하는 방법을 따라하실 수 있습니다.
+> 아래의 환경이 세팅되어 있지 않다면, 위 링크의 가이드를 통해 아래 설정을 별도로 하지 않고도 애플리케이션을 구성할 수 있으니 편하신 방법으로 구성해주세요.
+
 CDK 스택을 배포하려면 아래의 과정이 로컬 환경에 준비되어 있어야 합니다. 
 * Linux 기반 OS (*이 글이 게시되는 현재 Windows 배포 스크립트가 없습니다).
 * [NodeJS](https://nodejs.org/en)(버전 18 이상) 및 [NPM](https://www.npmjs.com/)이 설치되어 있어야 합니다. 설치되어 있는지 확인하려면 다음 명령을 실행하세요.
@@ -144,8 +148,6 @@ CDK 스택을 배포하려면 아래의 과정이 로컬 환경에 준비되어 
           "Arn": "arn:aws:iam::12345678XXXX:user/admin"
       }
     ```
-
-만약 위와 같이 CDK 설정이 어려운 상황일 경우, 해당 [링크](https://github.com/ottlseo/bedrock-rag-chatbot/tree/ec2-manual-deployment?tab=readme-ov-file#step-3-ec2%EC%97%90-%EC%B1%97%EB%B4%87-%EC%95%A0%ED%94%8C%EB%A6%AC%EC%BC%80%EC%9D%B4%EC%85%98-%EB%B0%B0%ED%8F%AC%ED%95%98%EA%B8%B0)를 통해 CDK 대신 수동으로 EC2 애플리케이션을 배포하는 방법을 따라하실 수 있습니다.
 
 ### AWS CDK 스택 배포 방법
 
