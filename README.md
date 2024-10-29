@@ -124,25 +124,25 @@ Knowledge base가 성공적으로 생성되었습니다. Data source에 앞서 [
 ### 전제 조건
 CDK 스택을 배포하려면 아래의 과정이 로컬 환경에 준비되어 있어야 합니다. 
 * Linux 기반 OS (*이 글이 게시되는 현재 Windows 배포 스크립트가 없습니다).
-* NodeJS(버전 18 이상) 및 NPM이 설치되어 있어야 합니다. 설치되어 있는지 확인하려면 다음 명령을 실행하세요.
+* [NodeJS](https://nodejs.org/en)(버전 18 이상) 및 [NPM](https://www.npmjs.com/)이 설치되어 있어야 합니다. 설치되어 있는지 확인하려면 다음 명령을 실행하세요.
     ```
     $ npm -v && node -v
-        7.24.2
-        v18.16.1
+    7.24.2
+    v18.16.1
     ```
-* AWS Cloud Development Kit(AWS CDK)가 설치되어 있어야 합니다. 설치되어 있는지 확인하려면 다음 명령을 실행하세요. 설치되어 있지 않다면, npm install -g aws-cdk로 설치할 수 있으며, 자세한 내용은 자습서를 참고해 설치를 완료해주세요.
+* [AWS Cloud Development Kit(AWS CDK)](https://aws.amazon.com/ko/cdk/)가 설치되어 있어야 합니다. 설치되어 있는지 확인하려면 다음 명령을 실행하세요. 설치되어 있지 않다면, npm install -g aws-cdk로 설치할 수 있으며, 자세한 내용은 [자습서](https://docs.aws.amazon.com/ko_kr/cdk/v2/guide/getting_started.html)를 참고해 설치를 완료해주세요.
     ```
     $ cdk --version
-        2.124.0 (build 4b6724c)
+    2.124.0 (build 4b6724c)
     ```
-* 백엔드 리소스를 실행할 AWS 계정과 AWS Command Line Interface(AWS CLI)(v2)가 설치 및 구성되어 있어야 합니다. AWS CLI가 컴퓨터에 설치 및 구성되었는지 확인하려면 다음 명령을 실행하세요. 기본 사용자로 설정되어 있어야 합니다. 이 사용자가 백엔드 리소스를 배포할 수 있는 권한이 있는지 확인합니다.
+* 백엔드 리소스를 실행할 AWS 계정과 [AWS Command Line Interface(AWS CLI)(v2)](https://aws.amazon.com/ko/cli/)가 설치 및 구성되어 있어야 합니다. AWS CLI가 컴퓨터에 설치 및 구성되었는지 확인하려면 다음 명령을 실행하세요. 기본 사용자로 설정되어 있어야 합니다. 이 사용자가 백엔드 리소스를 배포할 수 있는 권한이 있는지 확인합니다.
     ```
     $ aws sts get-caller-identity
-        {
-            "UserId": "AIDxxxxxxxxxxxxxxxT34",
-            "Account": "12345678XXXX",
-            "Arn": "arn:aws:iam::12345678XXXX:user/admin"
-        }
+      {
+          "UserId": "AIDxxxxxxxxxxxxxxxT34",
+          "Account": "12345678XXXX",
+          "Arn": "arn:aws:iam::12345678XXXX:user/admin"
+      }
     ```
 
 만약 위와 같이 CDK 설정이 어려운 상황일 경우, 해당 [링크](https://github.com/ottlseo/bedrock-rag-chatbot/tree/ec2-manual-deployment?tab=readme-ov-file#step-3-ec2%EC%97%90-%EC%B1%97%EB%B4%87-%EC%95%A0%ED%94%8C%EB%A6%AC%EC%BC%80%EC%9D%B4%EC%85%98-%EB%B0%B0%ED%8F%AC%ED%95%98%EA%B8%B0)를 통해 CDK 대신 수동으로 EC2 애플리케이션을 배포하는 방법을 따라하실 수 있습니다.
