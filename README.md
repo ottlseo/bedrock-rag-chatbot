@@ -111,80 +111,84 @@ Knowledge base가 성공적으로 생성되었습니다. Data source에 앞서 [
 ![image](https://github.com/user-attachments/assets/fec762b2-a629-4803-89aa-f328aa9649a3)
 ![image](https://github.com/user-attachments/assets/1af4bda3-2faf-4632-ba30-0592011b2d90)
 
+현재까지 구성한 아키텍처는 아래와 같습니다. 아래 보라색 화살표(1)와 같이, RAG에 활용하고자 하는 문서를 데이터 소스로 사용할 S3 버킷에 업로드하고 Knowledge base에 Sync하는 과정을 거치면 OpenSearch Serverless 벡터 스토어에 데이터가 검색 가능한 형태로 인덱싱됩니다. 이후 하늘색 화살표(2)와 같이, 콘솔에서 Bedrock Knowledge base에 질의하는 과정을 테스트해보았습니다. 
+
+![image](https://github.com/user-attachments/assets/14e7704a-3d8d-4751-bded-f7ce5c6d42eb)
+
 ## Step 3. EC2에 챗봇 애플리케이션 배포하기
+마지막으로, 위에서 생성한 RAG를 챗봇 애플리케이션 형태로 사용할 수 있도록 EC2에 배포해봅시다. AWS CDK를 이용해 간단한 Streamlit 애플리케이션을 EC2에 배포할 것입니다. 위에서 생성한 Bedrock Knowledge base의 ID를 CDK 배포 시 파라미터로 입력하면, 해당 값이 Systems Manager Parameter Store에 저장되어 챗봇을 배포한 EC2 인스턴스에서 이 값에 접근해 RAG에 질의할 수 있도록 하는 간단한 애플리케이션입니다. 따라서 CDK로 스택을 배포하고 나면 아래와 같은 아키텍처가 완성됩니다.
 
-### EC2 생성
-* ‘Ubuntu’ 서버로 생성합니다. (실습에서는 Ubuntu Server 24.04 LTS, SSD Volume Type 을 사용합니다.)
-* 보안그룹에 SSH(22 port) , HTTP (80) 에 대해 inbound rule을 추가해줍니다. 
-* 본 실습에서는 인스턴스 m5.large 유형을 사용합니다.
+![image](https://github.com/user-attachments/assets/cb7fa707-b48f-4a0c-88bb-83a1cbfdf179)
 
-![image](https://github.com/user-attachments/assets/dead46f2-f6de-4b2e-b0c7-4d337ef082e0)
-![image](https://github.com/user-attachments/assets/d932d83a-fec3-4efd-9933-009713ed02f2)
 
-### 소스코드 다운로드 및 필요 패키지 설치
-EC2가 만들어지면, EC2에 접근해 root 디렉토리에서 아래 명령어를 입력합니다. 
-```
-sudo apt update 
-sudo apt-get install -y ec2-instance-connect
-sudo apt-get install -y git
-sudo apt-get install -y python3-pip
-sudo apt-get install -y python3.12-venv
+### 전제 조건
+CDK 스택을 배포하려면 아래의 과정이 로컬 환경에 준비되어 있어야 합니다. 
+* Linux 기반 OS (*이 글이 게시되는 현재 Windows 배포 스크립트가 없습니다).
+* NodeJS(버전 18 이상) 및 NPM이 설치되어 있어야 합니다. 설치되어 있는지 확인하려면 다음 명령을 실행하세요.
+    ```
+    $ npm -v && node -v
+        7.24.2
+        v18.16.1
+    ```
+* AWS Cloud Development Kit(AWS CDK)가 설치되어 있어야 합니다. 설치되어 있는지 확인하려면 다음 명령을 실행하세요. 설치되어 있지 않다면, npm install -g aws-cdk로 설치할 수 있으며, 자세한 내용은 자습서를 참고해 설치를 완료해주세요.
+    ```
+    $ cdk --version
+        2.124.0 (build 4b6724c)
+    ```
+* 백엔드 리소스를 실행할 AWS 계정과 AWS Command Line Interface(AWS CLI)(v2)가 설치 및 구성되어 있어야 합니다. AWS CLI가 컴퓨터에 설치 및 구성되었는지 확인하려면 다음 명령을 실행하세요. 기본 사용자로 설정되어 있어야 합니다. 이 사용자가 백엔드 리소스를 배포할 수 있는 권한이 있는지 확인합니다.
+    ```
+    $ aws sts get-caller-identity
+        {
+            "UserId": "AIDxxxxxxxxxxxxxxxT34",
+            "Account": "12345678XXXX",
+            "Arn": "arn:aws:iam::12345678XXXX:user/admin"
+        }
+    ```
 
-git clone https://github.com/ottlseo/bedrock-rag-chatbot.git
+만약 위와 같이 CDK 설정이 어려운 상황일 경우, 해당 [링크](https://github.com/ottlseo/bedrock-rag-chatbot/tree/ec2-manual-deployment?tab=readme-ov-file#step-3-ec2%EC%97%90-%EC%B1%97%EB%B4%87-%EC%95%A0%ED%94%8C%EB%A6%AC%EC%BC%80%EC%9D%B4%EC%85%98-%EB%B0%B0%ED%8F%AC%ED%95%98%EA%B8%B0)를 통해 CDK 대신 수동으로 EC2 애플리케이션을 배포하는 방법을 따라하실 수 있습니다.
 
-sudo python3 -m venv --copies /home/ubuntu/my_env
-sudo chown -R ubuntu:ubuntu /home/ubuntu/my_env
-source /home/ubuntu/my_env/bin/activate
+### AWS CDK 스택 배포 방법
 
-cd bedrock-rag-chatbot
-
-pip3 install -r requirements.txt
-```
-
-### 생성한 Bedrock Knowledge base ID를 소스코드 내 variables.py 에 입력
-
-- [Step 2]에서 생성한 Bedrock KB console에서 ID를 복사한 뒤,
-  - ![image](https://github.com/user-attachments/assets/d473a37b-8af0-4382-9c3e-eb1191e7b680)
-- Clone 받아온 코드 variables.py 파일을 열고 KNOWLEDGE_BASE_ID 변수에 복사한 ID를 할당해줍니다.
-  - ![image](https://github.com/user-attachments/assets/525a7b8b-f77a-48f0-a7fb-1fe2fb95345d)
-
-### EC2 배포하기
-EC2에서 아래 명령어를 입력해 에디터를 엽니다. 
-```
-sudo vi /etc/systemd/system/streamlit.service
-```
-이후 열린 에디터에 아래 내용을 붙여넣습니다. 
-```
-[Unit]
-Description=Streamlit App
-After=network.target
-
-[Service]
-User=ubuntu
-Environment='AWS_DEFAULT_REGION=us-west-2'
-WorkingDirectory=/home/ubuntu/bedrock-rag-chatbot
-ExecStartPre=/bin/bash -c 'sudo iptables -t nat -A PREROUTING -p tcp --dport 80 -j REDIRECT --to-port 8501'
-ExecStart=/bin/bash -c 'source /home/ubuntu/my_env/bin/activate && streamlit run streamlit.py --server.port 8501'
-Restart=always
-
-[Install]
-WantedBy=multi-user.target
-```
-
-입력 후에는 `:wq` 를 입력해 에디터를 종료한 뒤, 아래 명령어로 Streamlit 애플리케이션을 시작해줍니다. 
-```
-sudo systemctl daemon-reload
-sudo systemctl enable streamlit
-sudo systemctl start streamlit
+아래 명령어를 입력해 준비된 CDK 코드를 Github에서 clone 받고, 필요한 패키지를 설치한 뒤, CDK 스택을 배포하기 전에 부트스트랩을 실행합니다. cdk bootstrap 실행 후 아래 스크린샷과 같이 Environment bootstrapped. 라는 메시지가 출력되면 배포를 위한 준비가 완료된 것입니다.
 
 ```
+$ git clone https://github.com/ottlseo/bedrock-rag-chatbot.git
+$ cd bedrock-rag-chatbot
 
-→ 이제 EC2의 public ip로 Streamlit 애플리케이션에 접근할 수 있습니다. 
+$ npm install
+
+$ cdk bootstrap aws://<Account ID>/us-west-2
+```
+
+이후 Bedrock 콘솔에서 생성한 Knowledge base의 ID를 복사한 뒤, 
+
+![image](https://github.com/user-attachments/assets/92ec6d94-d968-4223-8437-cf3b4f88e11d)
+
+아래 명령어의 ENTER_YOUR_KNOWLEDGE_BASE_ID 자리에 붙여넣어 실행합니다. 이후 스크린샷과 같이 ‘Do you wish to deploy these changes (y/n)?’가 나오면 y를 입력해 스택을 배포합니다. 
+
+```
+$ cdk deploy --parameters knowledgeBaseId=ENTER_YOUR_KNOWLEDGE_BASE_ID
+```
+
+![image](https://github.com/user-attachments/assets/377cb6fe-30f4-4cde-9bba-34b86db04129)
+
+약 5분 뒤, 모든 스택이 배포되고나면 아래와 같이 배포된 EC2의 public ip가 터미널에 출력됩니다. 해당 IP를 클릭해 Streamlit 애플리케이션에 접속할 수 있습니다. 위에서 cdk deploy 명령어를 실행할 때 Knowledge base ID를 함께 넣어주었기 때문에 이 챗봇 애플리케이션은 생성했던 Knowledge base와 연동됩니다. 
+
+> [!WARNING]
+> 만약 배포가 안 됐다면 아래 내용을 확인해보시길 바랍니다. 
+> 1. EC2에 애플리케이션을 완전히 배포하는 데에 약 5분 정도가 추가로 소요될 수 있습니다. 출력된 IP를 클릭했을 때 오류가 발생한다면 약 5분 뒤 다시 접속해보세요.
+> 2. 접속이 안 된다면 https:// 가 아니라 http:// 로 올바르게 접속했는지 확인해보세요. 
+
+![image](https://github.com/user-attachments/assets/07f03a60-7d0c-4f26-9793-4773653cf15c)
 
 - - -
 
 # Step 4. 배포한 애플리케이션 테스트해보기
 - Sample demo: http://35.87.31.249/
+
+배포가 무사히 되었다면 아래와 같은 챗봇 애플리케이션에 접속할 수 있습니다. 아래 샘플 질문을 테스트해보시거나, 코드를 자유롭게 커스텀해 자신만의 RAG 챗봇을 만들어보세요. 
+
+<img width="1385" alt="image" src="https://github.com/user-attachments/assets/ca165e3a-7af1-484a-a4df-3e86dd34c26c">
 
 #### 샘플 질문: 
 - `EC2란 무엇인가요?`
