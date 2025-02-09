@@ -12,6 +12,7 @@ sudo apt-get install -y python3.8-venv
 # Clone repository
 cd /home/ubuntu
 sudo git clone https://github.com/ottlseo/bedrock-rag-chatbot.git
+sudo git checkout ec2-manual-deployment
 
 # Create virtual environment
 sudo python3 -m venv --copies /home/ubuntu/my_env
