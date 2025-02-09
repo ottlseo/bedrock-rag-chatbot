@@ -131,6 +131,7 @@ sudo apt-get install -y python3-pip
 sudo apt-get install -y python3.12-venv
 
 git clone https://github.com/ottlseo/bedrock-rag-chatbot.git
+sudo git checkout ec2-manual-deployment
 
 sudo python3 -m venv --copies /home/ubuntu/my_env
 sudo chown -R ubuntu:ubuntu /home/ubuntu/my_env
