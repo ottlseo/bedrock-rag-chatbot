@@ -137,7 +137,7 @@ sudo python3 -m venv --copies /home/ubuntu/my_env
 sudo chown -R ubuntu:ubuntu /home/ubuntu/my_env
 source /home/ubuntu/my_env/bin/activate
 
-cd bedrock-rag-chatbot
+cd bedrock-rag-chatbot/application
 
 pip3 install -r requirements.txt
 ```
