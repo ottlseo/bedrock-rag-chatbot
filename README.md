@@ -184,7 +184,6 @@ sudo systemctl start streamlit
 - - -
 
 # Step 4. 배포한 애플리케이션 테스트해보기
-- Sample demo: http://35.87.31.249/
 
 #### 샘플 질문: 
 - `EC2란 무엇인가요?`
