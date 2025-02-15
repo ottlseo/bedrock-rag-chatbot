@@ -186,7 +186,6 @@ $ cdk deploy --parameters knowledgeBaseId=ENTER_YOUR_KNOWLEDGE_BASE_ID
 - - -
 
 # Step 4. 배포한 애플리케이션 테스트해보기
-- Sample demo: http://35.87.31.249/
 
 배포가 무사히 되었다면 아래와 같은 챗봇 애플리케이션에 접속할 수 있습니다. 아래 샘플 질문을 테스트해보시거나, 코드를 자유롭게 커스텀해 자신만의 RAG 챗봇을 만들어보세요. 
 
